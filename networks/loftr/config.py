@@ -9,7 +9,7 @@ _CN.LOFTR.WEIGHT = None
 
 ##############  ↓  LoFTR Pipeline  ↓  ##############
 _CN.LOFTR.BACKBONE_TYPE = 'ResNetFPN'
-_CN.LOFTR.RESOLUTION = (8, 2)  # options: [(8, 2), (16, 4)]
+_CN.LOFTR.RESOLUTION = (16, 4)  # options: [(8, 2), (16, 4)]
 _CN.LOFTR.FINE_WINDOW_SIZE = 5  # window_size in fine_level, must be odd
 _CN.LOFTR.FINE_CONCAT_COARSE_FEAT = False
 

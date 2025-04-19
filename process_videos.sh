@@ -14,8 +14,8 @@ if [[ ! -f "$1" || "${1##*.}" != "txt" ]]; then
 fi
 
 mkdir logs
-mkdir -p data/ZeroMatch/pseudo
-mkdir -p data/ZeroMatch/video_1080p
+mkdir -p /home/jovyan/workspace/data/ZeroMatch/pseudo
+mkdir -p /home/jovyan/workspace/data/ZeroMatch/video_1080p
 
 function select_gpu() {
   while true; do
@@ -38,7 +38,7 @@ while IFS= read -r VIDEO_ID
 do
   VIDEO_ID=$(echo "$VIDEO_ID" | tr -d '[:space:]')
 
-  output_file="./data/ZeroMatch/video_1080p/${VIDEO_ID}.mp4"
+  output_file="/home/jovyan/workspace/data/ZeroMatch/video_1080p/${VIDEO_ID}.mp4"
   if [ ! -f "$output_file" ]; then
     yt-dlp -f 'bv*[ext=mp4][height=1080]+ba[ext=m4a]/b[ext=mp4][height=1080]' -S "height, fps" "https://www.youtube.com/watch?v=$VIDEO_ID" -o "$output_file"
   else

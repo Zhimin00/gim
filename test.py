@@ -4,6 +4,16 @@
 import cv2
 import math
 import uuid
+from gim_datasets.data import MultiSceneDataModule
+from gim_datasets import gl3d
+from gim_datasets import gtasfm
+from gim_datasets import multifov
+from gim_datasets import blendedmvs
+from gim_datasets import iclnuim
+from gim_datasets import scenenet
+from gim_datasets import eth3d
+from gim_datasets import kitti
+from gim_datasets import robotcar
 
 import pytorch_lightning as pl
 
@@ -22,16 +32,7 @@ from networks.loftr.config import get_cfg_defaults as get_network_cfg
 from trainer.config import get_cfg_defaults as get_trainer_cfg
 from trainer.debug import get_cfg_defaults as get_debug_cfg
 
-from datasets.data import MultiSceneDataModule
-from datasets import gl3d
-from datasets import gtasfm
-from datasets import multifov
-from datasets import blendedmvs
-from datasets import iclnuim
-from datasets import scenenet
-from datasets import eth3d
-from datasets import kitti
-from datasets import robotcar
+
 
 Benchmarks = dict(
     GL3D            = gl3d.cfg,
@@ -58,7 +59,7 @@ RANSACs = dict(
     PARALLEL = cv2.USAC_PARALLEL,
 )
 
-MODEL_ZOO = ['gim_roma', 'gim_dkm', 'gim_loftr', 'gim_lightglue', 'root_sift']
+MODEL_ZOO = ['gim_roma','mast3r','mast3r_warpdpt', 'mast3r_onlywarp', 'gim_dkm', 'gim_loftr', 'gim_lightglue', 'root_sift']
 
 
 if __name__ == '__main__':
@@ -102,6 +103,8 @@ if __name__ == '__main__':
     # Hyper-parameters
     parser.add_argument('--img_size', type=int, default=9999,
                         help='Image Size')
+    parser.add_argument('--fine_size', type=int, default=None, nargs='?',
+                    const=9999, help='Image max size (optional)')
     parser.add_argument('--lr', type=float, default=8e-3,
                         help='Learning rate')
 
@@ -143,7 +146,8 @@ if __name__ == '__main__':
     ncfg.LOFTR.WEIGHT = join('weights', args.weight + '_' + args.version + '.ckpt')
     if args.weight == 'root_sift':
         ncfg.LOFTR.WEIGHT = None
-
+    elif 'mast3r' in args.weight:
+        ncfg.LOFTR.WEIGHT = None
     # ------------
     # Testing setting
     # ------------
