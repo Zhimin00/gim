@@ -14,7 +14,7 @@ from .multifov.multifov import MultiFoVDataset
 from .gl3d.gl3d import GL3DDataset as BlendedMVSDataset
 from .iclnuim.iclnuim import ICLNUIMDataset
 from .scenenet.scenenet import SceneNetDataset
-from .eth3d.eth3d import ETH3DDataset
+from .eth3d.eth3d import ETH3DDataset, ETH3DDataset2
 from .kitti.kitti import KITTIDataset
 from .robotcar.robotcar import RobotcarDataset
 
@@ -31,6 +31,8 @@ Benchmarks = dict(
     RobotcarNight   = RobotcarDataset,
     RobotcarSeason  = RobotcarDataset,
     RobotcarWeather = RobotcarDataset,
+    ETH3DO2         = ETH3DDataset2,
+    ETH3DI2         = ETH3DDataset2,
 )
 
 
@@ -172,8 +174,10 @@ class MultiSceneDataModule(pl.LightningDataModule):
     def _setup_dataset(self, benchmark, data_root, npz_root, scene_list_path, df, padding,
                        min_overlap_score, max_overlap_score, max_resize, fine_resize, augment_fn,
                        max_samples, mode, njobs, cfg):
-
-        seq_names = [benchmark.lower()]
+        seq_name = benchmark.lower()
+        if seq_name.endswith('2'):
+            seq_name = seq_name[:-1]
+        seq_names = [seq_name]
 
         with tqdm_joblib(tqdm(bar_format="{l_bar}{bar:3}{r_bar}", ncols=100,
                               desc=f'[GPU {self.gpuid}] load {mode} {benchmark:14} data',

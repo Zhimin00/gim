@@ -30,7 +30,7 @@ class KITTIDataset(Dataset):
                  **kwargs):
         super().__init__()
 
-        self.root = join('/home/jovyan/workspace/data/zeb', seq_name)
+        self.root = join('/home/cpeng26/scratchrchella4/data/zeb', seq_name)
 
         paths = glob.glob(join(self.root, '*.txt'))
 

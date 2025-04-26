@@ -43,6 +43,8 @@ Benchmarks = dict(
     SceneNet        = scenenet.cfg,
     ETH3DO          = eth3d.cfgO,
     ETH3DI          = eth3d.cfgI,
+    ETH3DO2         = eth3d.cfgO,
+    ETH3DI2         = eth3d.cfgI,
     KITTI           = kitti.cfg,
     RobotcarNight   = robotcar.night,
     RobotcarSeason  = robotcar.season,
@@ -59,7 +61,7 @@ RANSACs = dict(
     PARALLEL = cv2.USAC_PARALLEL,
 )
 
-MODEL_ZOO = ['gim_roma','mast3r','mast3r_warpdpt', 'mast3r_onlywarp', 'gim_dkm', 'gim_loftr', 'gim_lightglue', 'root_sift']
+MODEL_ZOO = ['gim_roma','mast3r','mast3r_finetune', 'aerial_mast3r', 'mast3r_warpdpt', 'mast3r_onlywarp', 'gim_dkm', 'gim_loftr', 'gim_lightglue', 'root_sift']
 
 
 if __name__ == '__main__':
